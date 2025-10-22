@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  apache:
+    build: .
+    container_name: apache-docker
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    hostname: apache
+    networks:
+      - proxy_network
+networks:
+  proxy_network:
+    name: proxy_network
+    driver: overlay
+    external: true

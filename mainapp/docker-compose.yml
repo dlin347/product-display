@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  app:
+    build: app/.
+    hostname: product-display
+    depends_on:
+      mariadb:
+        condition: service_started
+        required: true
+    networks:
+      - default
+      - proxy_network
+    ports:
+      - "5040:5040"
+    environment:
+      TZ: "Europe/Helsinki"
+      CONSUMER_KEY: ${CONSUMER_KEY}
+      CONSUMER_SECRET: ${CONSUMER_SECRET}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_HOST: mariadb
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      LOGIN_USER: ${LOGIN_USER}
+      LOGIN_PASSWORD: ${LOGIN_PASSWORD}
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY}
+    volumes:
+      - screenshots:/static/img
+      - /etc/localtime:/etc/localtime:ro
+
+  mariadb:
+    build: mariadb/.
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    hostname: mariadb
+    volumes:
+      - database:/var/lib/mysql
+
+networks:
+  proxy_network:
+    name: proxy_network
+    external: true
+
+volumes:
+  screenshots:
+  database:

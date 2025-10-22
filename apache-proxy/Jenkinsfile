@@ -1,0 +1,36 @@
+pipeline {
+    agent { label 'build-node-1' }
+    stages {
+        stage('Cloning Repository') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'github-credential', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                    rm -rf apache-proxy
+                    git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/organization/apache-proxy.git
+                    '''
+                }
+            }
+        }
+        stage('Jenkins Secret File to Docker Container') {
+            steps {
+                withCredentials([file(credentialsId: 'ApacheCRT', variable: 'CRT'),
+                    file(credentialsId: 'ApacheKEY', variable: 'KEY'), file(credentialsId: 'myCApem', variable: 'CA')]) {
+                        sh '''
+                        rm -rf ./certificates
+                        mkdir ./certificates
+                        cp $CRT ./certificates/apache.crt
+                        cp $KEY ./certificates/apache.key
+                        cp $CA ./certificates/myCA.pem
+                        '''
+                }
+            }
+        }
+        stage('Building and Deploying Docker') {
+            steps {
+                sh '''
+                docker compose up --build -d
+                '''
+            }
+        }
+    }
+}

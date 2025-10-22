@@ -1,0 +1,22 @@
+pipeline {
+    agent { label 'build-node-1' }
+    stages {
+        stage('Cloning Repository') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'github-credential', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                    rm -rf adb-docker
+                    git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/organization/adb-docker.git
+                    '''
+                }
+            }
+        }
+        stage('Building and Deploying Docker') {
+            steps {
+                sh '''
+                docker-compose up --build -d
+                '''
+            }
+        }
+    }
+}

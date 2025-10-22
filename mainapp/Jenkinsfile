@@ -1,0 +1,31 @@
+pipeline {
+    agent { label 'build-node-1' }
+    environment {
+        YOUTUBE_API_KEY=credentials('YOUTUBE_API_KEY')
+        MYSQL_ROOT_PASSWORD=credentials('MYSQL_ROOT_PASSWORD')
+        MYSQL_DATABASE=credentials('MYSQL_DATABASE')
+        MYSQL_USER=credentials('MYSQL_USER')
+        MYSQL_PASSWORD=credentials('MYSQL_PASSWORD')
+        CONSUMER_KEY=credentials('CONSUMER_KEY')
+        CONSUMER_SECRET=credentials('CONSUMER_SECRET')
+        LOGIN_USER=credentials('LOGIN_USER')
+        LOGIN_PASSWORD=credentials('LOGIN_PASSWORD')
+    }
+    stages {
+        stage('Cloning Repository') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'github-credential', usernameVariable: 'GITHUB_USER', passwordVariable: 'GITHUB_TOKEN')]) {
+                    sh '''
+                    rm -rf product-display
+                    git clone https://${GITHUB_USER}:${GITHUB_TOKEN}@github.com/organization/product-display.git
+                    '''
+                }
+            }
+        }
+        stage('Building and deploying Docker Image') {
+            steps {
+                sh 'docker compose up --build -d'
+            }
+        }
+    }
+}

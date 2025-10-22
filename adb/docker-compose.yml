@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  adb:
+    build: .
+    container_name: adb-docker
+    restart: unless-stopped
+    hostname: adb
+    environment:
+      TZ: "Europe/Helsinki"
+    volumes:
+      - adb_keys:/root/.android
+      - /etc/localtime:/etc/localtime:ro
+
+volumes:
+  adb_keys:

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration Control Panel</title>
+
+    <!-- F O N T S -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Finlandica:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- E N D   O F   F O N T S -->
+
+    <!-- S C R I P T S  /  S T Y L E S H E E T S -->
+    <script src="../static/js/control_panel.js"></script>
+    <link rel="stylesheet" href="../static/css/control_panel.css">
+    <!-- E N D   O F   S C R I P T S  /  S T Y L E S H E E T S -->
+</head>
+
+<body>
+    <!-- Container Wrapper -->
+    <div class="container-wrapper">
+        <!-- Controls Container -->
+        <div id="container">
+            <!-- B L A C K L I S T -->
+            <!-- Blacklist Product -->
+            <label for="category_id">Product ID to blacklist:</label><br>
+            <input type="text" placeholder="Type here the ID of the product" name="product_id" id="product_id">
+            <input type="button" value="Blacklist Product" id="blacklist_product" onclick="blacklist_product()">
+
+            <br><br>
+
+            <!-- Blacklist Category -->
+            <label for="category_id">Category ID to blacklist:</label><br>
+            <input type="text" placeholder="Type here the ID of the category" name="category_id" id="category_id">
+            <input type="button" value="Blacklist Category" id="blacklist_category" onclick="blacklist_category()">
+            <!-- E N D   O F   B L A C K L I S T -->
+
+            <br><br>
+
+            <!-- Add Youtube Video To The Database -->
+            <label for="youtubeURL">Youtube video URL:</label><br>
+            <input type="text" placeholder="Type here the URL of the video" name="youtubeURL" id="youtubeURL">
+            <input type="button" value="Add Video" id="addVideo" onclick="add_video()">
+
+            <br><br>
+
+            <!-- Add Website To The Database -->
+            <label for="websiteURL">Website URL:</label><br>
+            <input type="text" placeholder="Type here the website to display" name="websiteURL" id="websiteURL">
+            <input type="button" value="Add Website" id="addWebsite" onclick="add_website()">
+
+
+            <br><br>
+
+            <!-- Time Between Random Products -->
+            <label for="time">Time between random products:</label>
+            <span id="sliderValue">0</span>
+            <span>seconds</span>
+            <input type="range" min="1" max="60" step="1" name="time" id="time" onchange="modify_time()"
+                oninput="update_value(this.value, 'sliderValue')">
+
+            <hr><br>
+
+            <!-- C H A N C E S  /  P R O B A B I L I T I E S -->
+            <!-- Chances To Display Random Product -->
+            <label for="chancesRandomProduct">Chances to display a random product:</label>
+            <span id="sliderValueRandomProduct">0</span>
+            <span>%</span>
+            <input type="range" min="0" max="100" step="1" name="chancesRandomProduct" id="chancesRandomProduct" oninput="update_value(this.value, 'sliderValueRandomProduct')" onchange="smartSlider(this)">
+
+            <br>
+
+            <!-- Changes To Display a Random Category -->
+            <label for="chancesRandomCategory">Chances to display a random category products:</label>
+            <span id="sliderValueRandomCategory">0</span>
+            <span>%</span>
+            <input type="range" min="0" max="100" step="1" name="chancesRandomCategory" id="chancesRandomCategory" oninput="update_value(this.value, 'sliderValueRandomCategory')" onchange="smartSlider(this)">
+
+            <br>
+
+            <!-- Chances To Display a Grid of Products -->
+            <label for="chancesGrid">Chances to display a grid of products:</label>
+            <span id="sliderValueGrid">0</span>
+            <span>%</span>
+            <input type="range" min="0" max="100" step="1" name="chancesGrid" id="chancesGrid" oninput="update_value(this.value, 'sliderValueGrid')" onchange="smartSlider(this)">
+
+            <br>
+
+            <!-- Chances To Display a Youtube Video -->
+            <label for="chancesYoutubeVideo">Chances to display a youtube video:</label>
+            <span id="sliderValueYoutubeVideo">0</span>
+            <span>%</span>
+            <input type="range" min="0" max="100" step="1" name="chancesYoutubeVideo" id="chancesYoutubeVideo" oninput="update_value(this.value, 'sliderValueYoutubeVideo')" onchange="smartSlider(this)">
+
+            <br>
+
+            <!-- Chances To Display a Website -->
+            <label for="chancesWebsite">Chances to display a website:</label>
+            <span id="sliderValueWebsite">0</span>
+            <span>%</span>
+            <input type="range" min="0" max="100" step="1" name="chancesWebsite" id="chancesWebsite" oninput="update_value(this.value, 'sliderValueWebsite')" onchange="smartSlider(this)">
+
+            <br>
+
+            <!-- Button To Modify the Chances -->
+            <input type="button" value="Change Chances" id="changechances" onclick="modify_chances()">
+            <!-- E N D   O F  C H A N C E S  /  P R O B A B I L I T I E S -->
+        </div>
+
+
+        <!-- Other Containers (With Information) -->
+        <div class="containers-column">
+            <div id="videos_container">
+                <h4>Youtube Videos</h4>
+                <div id="videos_urls"></div>
+            </div>
+
+            <div id="websites_container">
+                <h4>Websites</h4>
+                <div id="websites_urls"></div>
+            </div>
+
+            <div id="blacklisted_products_container">
+                <h4>Blacklisted Products</h4>
+                <div id="products_ids"></div>
+            </div>
+
+            <div id="blacklisted_categories_container">
+                <h4>Blacklisted Categories</h4>
+                <div id="categories_ids"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+/* Reset Padding and Margin and Set Font */
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Finlandica';
+}
+
+/* Center Containers */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inset: 0;
+    background-color: #f1f1f1;
+    overflow: auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+/* I N P U T S */
+input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+input[type="text"] {
+    width: 70%;
+}
+
+input[type="button"] {
+    width: 25%;
+    background-color: #007bff;
+    color: white;
+}
+
+#changechances {
+    width: 100%;
+}
+
+input[type="range"] {
+    width: 95%;
+}
+/* E N D   O F   I N P U T S */
+
+/* Elements Inside Containers */
+p {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.1s;
+    margin: 5px 5px 5px 0px;
+    font-size: 13px;
+}
+
+/* Layout with Two Columns */
+.container-wrapper {
+    display: grid;
+    grid-template-columns: 600px auto;
+    gap: 150px;
+    justify-content: center;
+    align-items: start;
+}
+
+/* First column: Main container */
+#container {
+    grid-column: 1
+}
+
+/* Second column: Other containers displayed in a column */
+.containers-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+}
+
+/* C O N T A I N E R S */
+#container,
+#websites_container,
+#blacklisted_products_container,
+#blacklisted_categories_container,
+#videos_container {
+    width: 600px;
+    padding: 35px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    border: 3px solid #007bff;
+}
+
+#websites_container,
+#blacklisted_products_container,
+#blacklisted_categories_container,
+#videos_container {
+    margin-top: 10px;
+    color: black;
+    height: 25%;
+    max-height: 105px;
+    overflow-y: auto;
+}
+
+#websites_container, #blacklisted_products_container, #blacklisted_categories_container, #videos_container {
+    background-color: rgb(255, 255, 255);
+}
+/* E N D   O F   C O N T A I N E R S */
+
+/* P S E U D O C L A S S E S */
+input[type="button"]:hover {
+    cursor: pointer;
+    background-color: #21a4fc;
+}
+
+p:hover {
+    text-decoration: line-through;
+    background-color: #21a4fc;
+}
+
+input[type="text"]:focus {
+    outline: none;
+}
+/* E N D   O F   P S E U D O C L A S S E S */
